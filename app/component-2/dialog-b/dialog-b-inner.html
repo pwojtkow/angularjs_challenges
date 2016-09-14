@@ -1,0 +1,87 @@
+<h2>Hello from Dialog B!</h2>
+<div class="alert alert-info">
+    <p>Sort Type: {{ data.sortType }}</p>
+    <p>Sort Reverse: {{ data.sortReverse }}</p>
+</div>
+
+<div class="dropdown">
+    <label>Filter by expiration date: </label>
+    <button class="btn btn-primary btn-large dropdown-toggle genre-button"
+        type="button"
+        data-toggle="dropdown">{{data.dropdownButton}}
+            <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <li>
+            <a data-ng-click="filter('', 'all')">all</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a data-ng-click="filter('expired','expired')">expired</a>
+            <a data-ng-click="filter('active','active')">active</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a data-ng-click="filter('', 'none')">none</a>
+        </li>
+    </ul>
+</div>
+<br>
+
+<table id="challengesTable"
+    class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <td>
+                <a data-ng-href="{{data.currentUrl}}"
+                    data-ng-click="data.sortType='id'; data.sortReverse = !data.sortReverse">
+                    Id
+                    <span ng-show="data.sortType == 'id' && !data.sortReverse" class="fa fa-caret-down" ></span>
+                    <span ng-show="data.sortType == 'id' && data.sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+            </td>
+            <td>
+                <a href="{{data.currentUrl}}"
+                    data-ng-click="data.sortType='userSender.login'; data.sortReverse = !data.sortReverse">
+                    Sender
+                    <span ng-show="data.sortType == 'userSender.login' && !data.sortReverse" class="fa fa-caret-down" ></span>
+                    <span ng-show="data.sortType == 'userSender.login' && data.sortReverse" class="fa fa-caret-up"></span>
+          </a>
+            </td>
+            <td>
+                <a href="{{data.currentUrl}}"
+                    data-ng-click="data.sortType='userRecipient.login'; data.sortReverse = !data.sortReverse">
+                    Recipient
+                    <span ng-show="data.sortType == 'userRecipient.login' && !data.sortReverse" class="fa fa-caret-down" ></span>
+                    <span ng-show="data.sortType == 'userRecipient.login' && data.sortReverse" class="fa fa-caret-up"></span>
+          </a>
+            </td>
+            <td>
+                <a href="{{data.currentUrl}}"
+                    data-ng-click="data.sortType='expirationDate'; data.sortReverse = !data.sortReverse">
+                    Expiration Date
+                    <span ng-show="data.sortType == 'expirationDate' && !data.sortReverse" class="fa fa-caret-down" ></span>
+                    <span ng-show="data.sortType == 'expirationDate' && data.sortReverse" class="fa fa-caret-up"></span>
+          </a>
+            </td>
+            <td>
+                <a href="{{data.currentUrl}}"
+                    data-ng-click="data.sortType='createDate'; data.sortReverse = !data.sortReverse">
+                    Create date
+                    <span ng-show="data.sortType == 'createDate' && !data.sortReverse" class="fa fa-caret-down" ></span>
+                    <span ng-show="data.sortType == 'createDate' && data.sortReverse" class="fa fa-caret-up"></span>
+          </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="challengeId_{{challenges.id}}"
+            data-ng-repeat="challenge in data.challenges | orderBy:data.sortType:data.sortReverse | filter:search:strict"
+            data-ng-show="data.dropdownButton != 'none'">
+            <td data-ng-bind="challenge.id"></td>
+            <td data-ng-bind="challenge.userSender.login"></td>
+            <td data-ng-bind="challenge.userRecipient.login"></td>
+            <td data-ng-bind="challenge.expirationDate"></td>
+            <td data-ng-bind="challenge.createDate"></td>
+        </tr>
+    </tbody>
+</table>

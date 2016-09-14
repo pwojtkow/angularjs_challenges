@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section>
+        <h2>Challenge manager panel</h2>
+        <table id="challengesTable"
+            class="table table-bordered table-striped">
+            <thead class="thead-inverse">
+                <th>Id</th>
+                <th>Sender</th>
+                <th>Recipient</th>
+                <th>Status</th>
+                <th>Expiration date</th>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="challenge in data.challenges"
+                    id="row_{{challenge.id}}"
+                    data-ng-click="selectRow($index)"
+                    data-ng-class="{'active': selectedRowIndex === $index}">
+                    <td data-ng-bind="challenge.id"></td>
+                    <td data-ng-bind="challenge.userSender.login"></td>
+                    <td data-ng-bind="challenge.userRecipient.login"></td>
+                    <td data-ng-bind="challenge.challengeStatus"></td>
+                    <td>{{challenge.expirationDate | date: "yyyy:MM:dd HH:mm:ss"}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="addChallengeButton"
+            class="btn btn-primary btn-block"
+            data-ng-click="add()">Add new challenge</button>
+        <button data-ng-hide="selectedRowIndex === undefined"
+            type="editChallengeButton"
+            class="btn btn-primary btn-block"
+            data-ng-click="delete()">Delete challenge</button>
+    </section>
+
+</body>
+
+</html>
